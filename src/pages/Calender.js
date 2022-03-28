@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Months,Days} from "../Data/Data";
 import Day from "../component/Day";
 
@@ -7,6 +7,7 @@ import leftArrowCircle from '@iconify/icons-bxs/left-arrow-circle';
 import rightArrowCircle from '@iconify/icons-bxs/right-arrow-circle';
 import '../Css/Calender.css';
 const dateObj = new Date(1900, 0, 1);
+const today = new Date();
 
 function getDay(year, month, day){
     return new Date(year, month, day).getDay()
@@ -27,17 +28,19 @@ const decreaseMonth = (month) => {
     return ((month === 0 ? 11 : month - 1))
 }
 
+const isToday = (date) =>{
+    return date.getDate() === today.getDate() && date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear();
+}
 
-const compare = (selected, date, original) => {
 
-        if(selected.getTime() === date.getTime()){
-            console.log("same")
-            return original.toString() + " selected"
-        }else {
-            console.log("diff")
-            return original
+const contains = (targets,date) => {
+    for (let i = 0; i < targets.length(); i++) {
+        if(targets[i].getTime() === date.getTime()){
+            return i + 1;
         }
     }
+    return 0;
+}
 
 const createHeaders = () =>{
     return Object.entries(Days).map((day,index) => {
@@ -48,42 +51,60 @@ const createHeaders = () =>{
     })
 }
 
-const createDays = (year, month, selected, setSelected) =>{
-    const result = []
+const temp = (year, month, day, styles) => {
+    const title = new Date(year, month, day);
+    const selected = false;
+    const dayOfMonth = <Day date = {title} styles = {isToday(title) ? "box today" : styles}/>
+
+
+    return {title, dayOfMonth, selected};
+}
+
+const createDays = (year, month, targets, setTargets) =>{
+    const results = []
 
     const dayOfWeek = getDay(year, month, 1)
     const daysInMonth = getDaysInMonth(year, month);
     const daysInPreviousMonth = ((month === 0 ? getDaysInMonth(year, 11) :  getDaysInMonth(year, month)))
 
     for (let i = daysInPreviousMonth; i > daysInPreviousMonth - dayOfWeek; i--) {
-        result.push(
-            <Day date = {new Date(year, decreaseMonth(month),i)} styles = {compare(selected, new Date(year, decreaseMonth(month),i),"box grey")} selected = {selected} setSelected={setSelected}/>
-        )
+        results.push(temp(year, decreaseMonth(month), i , "box grey"));
     }
 
     for (let i = 1; i < daysInMonth + 1; i++) {
-        result.push(
-            <Day date = {new Date(year, month,i)} styles = {compare(selected,new Date(year, month,i),"box" )} selected = {selected} setSelected={setSelected}/>
-        )
+        results.push(temp(year, month, i , "box"));
     }
 
     for (let i = 1; i < (42 - daysInMonth - dayOfWeek + 1); i++) {
-        result.push(
-            <Day date = {new Date(year, increaseMonth(month),i)} styles = {compare(selected, new Date(year, increaseMonth(month),i),"box grey")} selected = {selected} setSelected={setSelected}/>
-        )
+        results.push(temp(year, increaseMonth(month), i , "box grey"));
     }
 
-    return result
+    return results
 }
-
 
 
 
 export default function Calender() {
 
-    const [month, setMonth] = useState(0);
-    const [year, setYear] = useState(2022);
-    const [selected, setSelected] = useState(dateObj);
+    const [month, setMonth] = useState(today.getMonth());
+    const [year, setYear] = useState(today.getFullYear());
+    const [list, setList] = useState(createDays(year, month, setTargets));
+    const [targets, setTargets] = useState([dateObj]);
+
+
+
+    const checkTargets = (date) => {
+        const temp = contains(targets, date);
+        if(temp === 0){
+            setTargets([...targets, date])
+        }else
+            setTargets([...targets.splice(temp - 1 ,1)])
+    }
+    
+    
+    useEffect(() => {
+        setList(createDays(year,month))
+    }, [year, month])
 
 
 
@@ -111,7 +132,9 @@ export default function Calender() {
                         {createHeaders()}
                     </div>
                     <div className={"days"}>
-                        {createDays(year,month, selected, setSelected)}
+                        {list.map((item)=> (
+                            item.dayOfMonth
+                        ))}
                     </div>
 
                 </div>

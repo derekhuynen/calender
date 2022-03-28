@@ -35,6 +35,19 @@ span{
     border-radius: 10px;
 }
 
+.today{
+    border: 2px solid dimgray;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.today > span{
+    font-size: 8px;
+    font-weight: bold;
+    position: relative;
+    top: -3px;
+}
+
 .selected:hover{
     background-color: #801614;
     border-radius: 10px;

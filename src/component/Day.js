@@ -10,8 +10,6 @@ export default function Day(props){
 
 
 
-
-
     useEffect(() => {
         setStyles(props.styles);
         setDate(props.date);
@@ -22,13 +20,7 @@ export default function Day(props){
 
     return(
         <div className={styles} onClick={() => {
-            if(props.selected.getTime() === date.getTime()){
-                props.setSelected(dateObj)
-                console.log("Same Inside")
-            }else {
-                props.setSelected(date)
-                console.log("Same Inside")
-            }
+
         }}>
             <span>{date.getDate()}</span>
         </div>
