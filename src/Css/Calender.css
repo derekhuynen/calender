@@ -1,0 +1,72 @@
+
+
+.calender-container{
+    border: 1px solid red;
+    width: 300px;
+    display: flex;
+    padding: 2px;
+    flex-direction: column;
+}
+.calender-header{
+    width: 100%;
+    border: 1px solid blue;
+    text-align: center;
+    box-sizing: border-box;
+
+}
+
+.arrow{
+    position: relative;
+    top: 5px;
+    cursor: pointer;
+}
+
+.headerName{
+    display: inline-block;
+    min-width: 200px;
+    border: 1px solid red;
+    text-align: center;
+}
+
+.calender-bottom{
+    border: 1px solid red;
+    height: 300px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.days-header{
+    border: 1px solid red;
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    margin:0;
+}
+
+.days{
+    flex: 0 0 40px;
+    border: 1px solid black;
+}
+
+.days > span{
+    position: relative;
+    top: -5px;
+    left: 5px;
+    font-size: 10px;
+}
+
+.extra{
+    flex: 0 0 40px;
+    border: 1px solid black;
+    color: lightgrey;
+}
+
+.extra > span{
+    position: relative;
+    top: -5px;
+    left: 5px;
+    font-size: 10px;
+}
+
+
+
