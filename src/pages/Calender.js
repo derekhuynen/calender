@@ -6,7 +6,7 @@ import {Icon} from '@iconify/react';
 import leftArrowCircle from '@iconify/icons-bxs/left-arrow-circle';
 import rightArrowCircle from '@iconify/icons-bxs/right-arrow-circle';
 import '../Css/Calender.css';
-
+const dateObj = new Date(1900, 0, 1);
 
 function getDay(year, month, day){
     return new Date(year, month, day).getDay()
@@ -28,6 +28,17 @@ const decreaseMonth = (month) => {
 }
 
 
+const compare = (selected, date, original) => {
+
+        if(selected.getTime() === date.getTime()){
+            console.log("same")
+            return original.toString() + " selected"
+        }else {
+            console.log("diff")
+            return original
+        }
+    }
+
 const createHeaders = () =>{
     return Object.entries(Days).map((day,index) => {
         return(
@@ -42,23 +53,23 @@ const createDays = (year, month, selected, setSelected) =>{
 
     const dayOfWeek = getDay(year, month, 1)
     const daysInMonth = getDaysInMonth(year, month);
-    const previousMonth = ((month === 0 ? getDaysInMonth(year, 11) :  getDaysInMonth(year, month)))
+    const daysInPreviousMonth = ((month === 0 ? getDaysInMonth(year, 11) :  getDaysInMonth(year, month)))
 
-    for (let i = previousMonth; i > previousMonth - dayOfWeek; i--) {
+    for (let i = daysInPreviousMonth; i > daysInPreviousMonth - dayOfWeek; i--) {
         result.push(
-            <Day year = {year} month = {(month === 0 ? 11 : month - 1)} day = {i} styles = {"box grey"} selected = {selected} setSelected = {setSelected}/>
+            <Day date = {new Date(year, decreaseMonth(month),i)} styles = {compare(selected, new Date(year, decreaseMonth(month),i),"box grey")} selected = {selected} setSelected={setSelected}/>
         )
     }
 
     for (let i = 1; i < daysInMonth + 1; i++) {
         result.push(
-            <Day year = {year} month = {month} day = {i} styles = {"box"} selected = {selected} setSelected = {setSelected}/>
+            <Day date = {new Date(year, month,i)} styles = {compare(selected,new Date(year, month,i),"box" )} selected = {selected} setSelected={setSelected}/>
         )
     }
 
     for (let i = 1; i < (42 - daysInMonth - dayOfWeek + 1); i++) {
         result.push(
-            <Day year = {year} month = {(month === 11 ? 0 : month + 1)} day = {i} styles = {"box grey"} selected = {selected} setSelected = {setSelected}/>
+            <Day date = {new Date(year, increaseMonth(month),i)} styles = {compare(selected, new Date(year, increaseMonth(month),i),"box grey")} selected = {selected} setSelected={setSelected}/>
         )
     }
 
@@ -72,7 +83,8 @@ export default function Calender() {
 
     const [month, setMonth] = useState(0);
     const [year, setYear] = useState(2022);
-    const [selected, setSelected] = useState();
+    const [selected, setSelected] = useState(dateObj);
+
 
 
     return (
@@ -99,7 +111,7 @@ export default function Calender() {
                         {createHeaders()}
                     </div>
                     <div className={"days"}>
-                        {createDays(year,month,selected,setSelected)}
+                        {createDays(year,month, selected, setSelected)}
                     </div>
 
                 </div>
