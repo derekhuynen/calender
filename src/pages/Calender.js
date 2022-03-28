@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {Months,Days} from "../Data/Data";
+import Day from "../component/Day";
 
 import {Icon} from '@iconify/react';
 import leftArrowCircle from '@iconify/icons-bxs/left-arrow-circle';
@@ -13,10 +14,8 @@ function getDay(year, month, day){
 
 function getDaysInMonth(year, month) {
     const temp = new Date(year, (month === 11 ? 0 : month + 1), 0);
-    console.log(temp)
 
     return temp.getDate()
-
 }
 
 const createHeaders = () =>{
@@ -37,27 +36,22 @@ const createDays = (year, month) =>{
 
     for (let i = previousMonth; i > previousMonth - dayOfWeek; i--) {
         result.push(
-            <div className={"extra"}>
-                <span>{i}</span>
-            </div>
+            <Day year = {year} month = {(month === 0 ? 11 : month - 1)} day = {i} styles = {"extra"} />
         )
     }
 
     for (let i = 1; i < daysInMonth + 1; i++) {
         result.push(
-            <div className={"days"}>
-                <span>{i}</span>
-            </div>
+            <Day year = {year} month = {month} day = {i} styles = {"days"} />
         )
     }
 
     for (let i = 1; i < (42 - daysInMonth - dayOfWeek + 1); i++) {
         result.push(
-            <div className={"extra"}>
-                <span>{i}</span>
-            </div>
+            <Day year = {year} month = {(month === 11 ? 0 : month + 1)} day = {i} styles = {"extra"} />
         )
     }
+
     return result
 }
 
