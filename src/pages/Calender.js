@@ -18,16 +18,26 @@ function getDaysInMonth(year, month) {
     return temp.getDate()
 }
 
+
+const increaseMonth = (month) => {
+    return ((month === 11 ? 0 : month + 1))
+}
+
+const decreaseMonth = (month) => {
+    return ((month === 0 ? 11 : month - 1))
+}
+
+
 const createHeaders = () =>{
     return Object.entries(Days).map((day,index) => {
         return(
-            <div className={"days-header"}>
-                <span>{day[1]}</span>
+            <div className={"header box"}>
+                <h5>{day[1]}</h5>
             </div>)
     })
 }
 
-const createDays = (year, month) =>{
+const createDays = (year, month, selected, setSelected) =>{
     const result = []
 
     const dayOfWeek = getDay(year, month, 1)
@@ -36,19 +46,19 @@ const createDays = (year, month) =>{
 
     for (let i = previousMonth; i > previousMonth - dayOfWeek; i--) {
         result.push(
-            <Day year = {year} month = {(month === 0 ? 11 : month - 1)} day = {i} styles = {"extra"} />
+            <Day year = {year} month = {(month === 0 ? 11 : month - 1)} day = {i} styles = {"box grey"} selected = {selected} setSelected = {setSelected}/>
         )
     }
 
     for (let i = 1; i < daysInMonth + 1; i++) {
         result.push(
-            <Day year = {year} month = {month} day = {i} styles = {"days"} />
+            <Day year = {year} month = {month} day = {i} styles = {"box"} selected = {selected} setSelected = {setSelected}/>
         )
     }
 
     for (let i = 1; i < (42 - daysInMonth - dayOfWeek + 1); i++) {
         result.push(
-            <Day year = {year} month = {(month === 11 ? 0 : month + 1)} day = {i} styles = {"extra"} />
+            <Day year = {year} month = {(month === 11 ? 0 : month + 1)} day = {i} styles = {"box grey"} selected = {selected} setSelected = {setSelected}/>
         )
     }
 
@@ -57,38 +67,41 @@ const createDays = (year, month) =>{
 
 
 
+
 export default function Calender() {
 
     const [month, setMonth] = useState(0);
     const [year, setYear] = useState(2022);
+    const [selected, setSelected] = useState();
 
-
-    const increaseMonth = () => {
-        setMonth((month === 11 ? 0 : month + 1))
-    }
-
-    const decreaseMonth = () => {
-        setMonth((month === 0 ? 11 : month - 1))
-    }
 
     return (
             <div className={"calender-container"}>
                 <div className={"calender-header"}>
-                    <h1>
-                        <Icon icon={leftArrowCircle} className={"arrow"} onClick={decreaseMonth}/>
-                        <div className={"headerName"}>{Months[month]}</div>
-                        <Icon icon={rightArrowCircle} className={"arrow"} onClick={increaseMonth}/>
-                    </h1>
+                    <div className={"headerName month"}>
+                        <Icon icon={leftArrowCircle} className={"arrow big"} onClick={() => {
+                            setMonth(decreaseMonth(month))
+                        }}/>
+                        <h2> {Months[month]}</h2>
+                        <Icon icon={rightArrowCircle} className={"arrow big"} onClick={() => {
+                            setMonth(increaseMonth(month))
+                        }}/>
+                    </div>
 
-                    <h3>
-                        <Icon icon={leftArrowCircle} className={"arrow"} onClick={() => setYear(year - 1)}/>
-                        <div className={"headerName"}>{year}</div>
-                        <Icon icon={rightArrowCircle} className={"arrow"} onClick={() => setYear(year + 1)}/>
-                    </h3>
+                    <div className={"headerName"}>
+                        <Icon icon={leftArrowCircle} className={"arrow small"} onClick={() => setYear(year - 1)}/>
+                        <h3>{year}</h3>
+                        <Icon icon={rightArrowCircle} className={"arrow small"} onClick={() => setYear(year + 1)}/>
+                    </div>
                 </div>
                 <div className={"calender-bottom"}>
-                    {createHeaders()}
-                    {createDays(year,month)}
+                    <div className={"headers"}>
+                        {createHeaders()}
+                    </div>
+                    <div className={"days"}>
+                        {createDays(year,month,selected,setSelected)}
+                    </div>
+
                 </div>
             </div>
     )

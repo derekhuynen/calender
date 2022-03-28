@@ -1,72 +1,135 @@
+h2{
+    font-size: 16px;
+}
+h3 {
+    font-size: 13px;
+}
+h5{
+    font-size: 9px;
+}
+span{
+    font-size: 8px;
+    font-weight: bold;
+    position: relative;
+    top: -1px;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
 
+.box{
+    flex: 0 0 23px;
+    height: 23px;
+    width: 23px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.days > .box{
+    cursor: pointer;
+}
+
+.selected{
+    background-color: #ff6966;
+    border-radius: 10px;
+}
+
+.selected:hover{
+    background-color: #801614;
+    border-radius: 10px;
+}
+
+.days > :not(.selected).box:hover{
+    background-color: lightgray;
+    border-radius: 10px;
+}
+
+.days > :not(.selected).grey:hover{
+    background-color: lightgray;
+    color: white;
+}
+
+
+.big{
+    font-size: 14px;
+}
+
+.small{
+    font-size: 10px;
+}
 
 .calender-container{
-    border: 1px solid red;
-    width: 300px;
-    display: flex;
-    padding: 2px;
-    flex-direction: column;
+    border: 2px solid black;
+    border-radius: 3px;
+    width: 164px;
+    padding: 1px;
+    margin: 5px;
+    background-color: black;
 }
-.calender-header{
-    width: 100%;
-    border: 1px solid blue;
-    text-align: center;
-    box-sizing: border-box;
 
+.calender-header{
+    border: 1px solid #ff6966;
+    border-bottom-color: black;
+    text-align: center;
+    margin: 0 auto 0 auto;
+    border-radius: 3px;
+    width: 159px;
+    background-color: #ff6966;
+}
+
+.headerName{
+    text-align: center;
+}
+
+.month > h2{
+    width: 75px;
+}
+
+.headerName > h2,h3{
+    display: inline-block;
 }
 
 .arrow{
     position: relative;
-    top: 5px;
+    top: 1px;
     cursor: pointer;
-}
-
-.headerName{
-    display: inline-block;
-    min-width: 200px;
-    border: 1px solid red;
-    text-align: center;
+    margin: 0 3px 0 3px
 }
 
 .calender-bottom{
-    border: 1px solid red;
-    height: 300px;
+    border: 1px solid black;
+    width: 161px;
+    margin: 0 auto 0 auto;
+    border-radius: 3px;
+    background-color: white;
+}
+
+.headers{
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    box-sizing: border-box;
+}
+
+.header{
+    text-align: center;
+}
+
+.header > h5{
+    margin: 25% 0 0 0 ;
+}
+
+.days {
     display: flex;
     flex-wrap: wrap;
 }
 
-.days-header{
-    border: 1px solid red;
-    height: 40px;
-    width: 40px;
-    text-align: center;
-    margin:0;
-}
-
-.days{
-    flex: 0 0 40px;
-    border: 1px solid black;
-}
-
-.days > span{
-    position: relative;
-    top: -5px;
-    left: 5px;
-    font-size: 10px;
-}
-
-.extra{
-    flex: 0 0 40px;
-    border: 1px solid black;
+.grey{
     color: lightgrey;
 }
 
-.extra > span{
-    position: relative;
-    top: -5px;
-    left: 5px;
-    font-size: 10px;
-}
+
 
 
 

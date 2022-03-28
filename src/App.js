@@ -1,5 +1,4 @@
 import Calender from "./pages/Calender";
-import './App.css';
 
 
 function App() {
