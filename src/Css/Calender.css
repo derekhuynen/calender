@@ -1,8 +1,8 @@
 h2{
-    font-size: 16px;
+    font-size: 15px;
 }
 h3 {
-    font-size: 13px;
+    font-size: 12px;
 }
 h5{
     font-size: 9px;
@@ -19,9 +19,8 @@ span{
 }
 
 .box{
-    flex: 0 0 23px;
-    height: 23px;
-    width: 23px;
+    height: 18px;
+    width: 18px;
     box-sizing: border-box;
     text-align: center;
 }
@@ -75,10 +74,19 @@ span{
 .calender-container{
     border: 2px solid black;
     border-radius: 3px;
-    width: 164px;
+    width: 128px;
     padding: 1px;
     margin: 5px;
     background-color: black;
+    float: right;
+}
+
+.left{
+   float: left;
+}
+
+.right{
+    float: right;
 }
 
 .calender-header{
@@ -87,7 +95,7 @@ span{
     text-align: center;
     margin: 0 auto 0 auto;
     border-radius: 3px;
-    width: 159px;
+    width: calc(100% - 2px);
     background-color: #ff6966;
 }
 
@@ -112,7 +120,7 @@ span{
 
 .calender-bottom{
     border: 1px solid black;
-    width: 161px;
+    width: calc(100% - 2px);
     margin: 0 auto 0 auto;
     border-radius: 3px;
     background-color: white;

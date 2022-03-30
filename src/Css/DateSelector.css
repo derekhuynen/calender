@@ -1,0 +1,81 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.dateSelector-container{
+    border: 1px solid black;
+    width: 80%;
+    margin: 0 auto 0 auto;
+
+}
+
+.filter-container{
+    width: 100%;
+    min-height: 50px;
+    border: 1px solid black;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.date-container{
+    width: 100%;
+    min-height: 50px;
+    border: 1px solid black ;
+    margin: 0 auto 0 auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.date{
+    width: 100px;
+    height: 20px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.date > h3 {
+
+}
+
+
+
+/********************************/
+
+
+
+.singleFilter-container{
+    border: 1px solid black;
+    width: fit-content;
+    padding: 0 5px 0 5px;
+}
+
+.singleFilter-split{
+    text-align: center;
+
+}
+
+.singleFilter-split > h3{
+    margin: 0 3px 0 3px;
+    font-size: 18px;
+}
+
+.singleFilter-split > h4{
+    font-size: 15px;
+}
+
+.filter-arrows{
+    font-size: 12px !important;
+    position: relative;
+    top:1px;
+}
+
+.button{
+    margin: 0 auto 0 auto;
+}

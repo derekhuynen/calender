@@ -1,26 +1,8 @@
-import React, {useEffect, useState} from 'react'
-
-
-const dateObj = new Date(1900, 0, 1);
-
-
-export default function Day(props){
-    const [date, setDate] = useState(dateObj);
-    const [styles, setStyles] = useState();
-
-
-
-    useEffect(() => {
-        setStyles(props.styles);
-        setDate(props.date);
-    }, [props.styles, props.date])
-
-
-
+export default function Day({date, ...props} ){
 
     return(
-        <div className={styles} onClick={() => {
-
+        <div className={props.highLighted ? props.styles + " selected" : props.styles} onClick={() => {
+            ((props.styles.includes("grey")) ? props.onClick(date,true) : props.onClick(date,false))
         }}>
             <span>{date.getDate()}</span>
         </div>
