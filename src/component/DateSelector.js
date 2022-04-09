@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import '../Css/DateSelector.css'
 import Calender from "../pages/Calender";
 import SingleFilter from "./SingleFilter";
@@ -22,11 +22,23 @@ export default function DateSelector() {
     //     setShowEnd(false);
     // }, [startDate,endDate]);
 
+    useEffect(() => {
+        if(startDate !== undefined && endDate !== undefined) {
+            handleButton();
+        }
+        
+    }, [endDate, filters, startDate]);
+
 
     const handleButton = () => {
-        Object.values(filters).map((value) => {
-            console.log(`${value.displayName}: ${value.amount}`);
-        })
+        if(startDate !== undefined && endDate !== undefined){
+            console.log("Check In: " + formatDate(startDate));
+            console.log("Check Out: " + formatDate(endDate));
+            Object.values(filters).map((value) => {
+                console.log(`${value.displayName}: ${value.amount}`);
+            })
+        }
+
     }
 
     const handleSetFilter = (name, count, title) => {
@@ -36,7 +48,6 @@ export default function DateSelector() {
             ...filters,
             ...updatedValue
         }));
-        handleButton();
     }
 
     const formatDate = (date) => {
